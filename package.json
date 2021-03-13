@@ -12,7 +12,7 @@
     "express": "^4.17.1",
     "monk": "^7.3.3",
     "nanoid": "^3.1.21",
-    "yup": "^0.32.9"
+    "yup": "0.29.1"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
