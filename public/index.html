@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
+    <link rel="stylesheet" href="./index.css">
 </head>
+
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <form @submit.prevent="onSubmit">
+            <label class="mx-5 text-white" for="url">url</label>
+            <input type="text" v-model="url">
+
+            <label class="mx-5 text-white" for="slug">slug</label>
+            <input class="" type="text" v-model='slug'>
+            <button class="mx-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">generate</button>
+        </form>
+
+        <div class="text-white" v-if="created" >
+           <p>you short url is: <a class="hover:bg-blue-700 " :href="created" target="_blank">{{created}}</a></p>
+        </div>
+    </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="./app.js"></script>
 </body>
+
 </html>
