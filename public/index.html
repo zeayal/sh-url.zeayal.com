@@ -5,27 +5,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
+    <title>短连接生成器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.4/tailwind.min.css"
+        integrity="sha512-paVHVRRhdoOu1nOXKnqDC1Vka0nh7FAmU3nsM4n2FKxOQTeF6crMdMfkVvEsuaOXZ6oEAVL5+wLbQcule/Xdag=="
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-    <div id="root">
-        <form @submit.prevent="onSubmit">
-            <label class="mx-5 text-white" for="url">url</label>
-            <input type="text" v-model="url">
+    <div id="root" class="flex h-screen">
+        <section class="flex flex-col border-2 border-purple-500 p-10 shadow-md w-1/2 m-auto">
+            <header class="text-xl text-white mb-4">
+                <h2>短连接生成器</h2>
+            </header>
 
-            <label class="mx-5 text-white" for="slug">slug</label>
-            <input class="" type="text" v-model='slug'>
-            <button class="mx-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">generate</button>
-        </form>
+            <form @submit.prevent="onSubmit" class="flex flex-col">
+                <div class="flex">
+                    <label class="inline-block bg-purple-500 text-white w-36 p-3 px-5 rounded-l " for="url">长链接</label>
+                    <input class="p-3 px-5 focus:outline-none text-base w-full" type="text" v-model="url">
+                </div>
+                <div class="mt-2 flex">
+                    <label class="inline-block bg-purple-500 text-white w-36 p-3 px-5 rounded-l" for="slug">指定路径</label>
+                    <input class="p-3 px-5 focus:outline-none  w-full" type="text" v-model='slug'>
+                </div>
+                <button class="mt-4 bg-purple-500 hover:bg-purple-700 focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer">
+                    点击生成
+                </button>
+            </form>
 
-        <div class="text-white" v-if="created" >
-           <p>you short url is: <a class="hover:bg-blue-700 " :href="created" target="_blank">{{created}}</a></p>
-        </div>
+            <div class="text-white mt-12 p-2" v-if="created">
+                <p>短链接: <a class="hover:bg-pruple-500 text-green-500 " :href="created" target="_blank">{{created}}</a></p>
+            </div>
+        </section>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
+    <script type="text/javascript" src="/scripts/core/dist/PNotify.js"></script>
+    <link href="/style/core/dist/PNotify.css" rel="stylesheet" />
+    <script type="text/javascript" src="/scripts/mobile/dist/PNotifyMobile.js"></script>
+    <link href="/style/mobile/dist/PNotifyMobile.css" rel="stylesheet" type="text/css" />
+    <link href="/style/core/dist/BrightTheme.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        PNotify.defaultModules.set(PNotifyMobile, {});
+    </script>
+
     <script src="./app.js"></script>
 </body>
 

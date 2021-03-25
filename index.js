@@ -13,31 +13,11 @@ const db = monk(process.env.MONGODB_URL);
 const urls = db.get("urls");
 urls.createIndex({ slug: 1 }, { unique: true });
 
-app.set("view engine", "pug");
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms")
 );
 app.use(express.json());
 app.use(express.static("public"));
-
-app.get("/", (req, res) => {
-  res.json("hello json");
-});
-
-app.get("/error", (req, res) => {
-  throw new Error("test error message");
-});
-
-app.get("/file", (req, res, next) => {
-  fs.readFile(path.resolve(__dirname, "hello。.txt"), function (err, data) {
-    if (err) {
-      console.log("没有抛出异常，可能会中断程序 err");
-      next(err);
-    } else {
-      res.send(data);
-    }
-  });
-});
 
 app.get("/github", async (req, res, next) => {
   const response = await fetch("https://api.github.com/users/zeayal");
@@ -49,6 +29,15 @@ app.get("/github", async (req, res, next) => {
   });
 });
 
+app.use(
+  "/scripts",
+  express.static(__dirname + "/node_modules/@pnotify/")
+);
+app.use(
+  "/style",
+  express.static(__dirname + "/node_modules/@pnotify/")
+);
+
 const schema = yup.object().shape({
   url: yup.string().trim().url().required(),
   slug: yup
@@ -58,38 +47,18 @@ const schema = yup.object().shape({
 });
 
 const slugSchema = yup.object().shape({
-  slug: yup.string().trim().matches(/^[\w\-]+$/i),
+  slug: yup
+    .string()
+    .trim()
+    .matches(/^[\w\-]+$/i),
 });
 
-app.get(
-  "/writeToFile",
-  function (req, res, next) {
-    fs.writeFile("hello3.txt", "test data", next);
-  },
-  function (req, res) {
-    res.send("OK");
-  }
-);
-
-app.get("/mustCatchError", function (req, res, next) {
-  setTimeout(() => {
-    //
-    Promise.resolve(1)
-      .then((data) => {
-        console.log("data", data);
-        // res.send("ok");
-        throw new Error("test error");
-      })
-      .catch(next);
-  }, 100);
-});
-
-const notFoundPath = path.resolve('public/404.html')
+const notFoundPath = path.resolve("public/404.html");
 
 app.get("/:id", async (req, res, next) => {
   let { id: slug } = req.params;
-  console.log('req.query', req.query)
-  console.log('req.params', req.params);
+  console.log("req.query", req.query);
+  console.log("req.params", req.params);
   try {
     const valid = await slugSchema.validate({ slug });
     if (valid) {

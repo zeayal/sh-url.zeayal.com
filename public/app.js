@@ -1,6 +1,6 @@
 const app = Vue.createApp({
   data() {
-    return { url: "", slug: "", created: '' };
+    return { url: "", slug: "", created: "" };
   },
   created() {
     // this points to the vm instance
@@ -11,6 +11,13 @@ const app = Vue.createApp({
       const { url, slug } = this;
       const params = { url, slug };
       console.log("params", params);
+      if (!params.url.trim().length) {
+        PNotify.error({
+          title: "错误提示",
+          text: '请输入要转换的 url',
+        });
+        return;
+      }
       const res = await fetch("http://localhost:1323/url", {
         method: "POST",
         headers: {
@@ -18,11 +25,16 @@ const app = Vue.createApp({
         },
         body: JSON.stringify(params),
       }).then((res) => res.json());
-  
+
       console.log("res", res);
 
-      if(res.status === 0) {
-        this.created = `${location.origin}/${res.data.slug}`
+      if (res.status === 0) {
+        this.created = `${location.origin}/${res.data.slug}`;
+      } else {
+        PNotify.error({
+          title: "错误提示",
+          text: res.message,
+        });
       }
     },
   },
