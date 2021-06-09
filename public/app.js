@@ -18,7 +18,7 @@ const app = Vue.createApp({
         });
         return;
       }
-      const res = await fetch("http://localhost:1323/url", {
+      const res = await fetch("/url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
