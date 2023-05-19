@@ -70,7 +70,7 @@ const App = () => {
         </div>
 
         <div className="text-white mt-12 p-2">
-          <p>短链接: <a className="hover:bg-pruple-500 text-green-500 " target="_blank">{ created }</a></p>
+          <p>短链接: <a className="hover:bg-pruple-500 text-green-500 " target="_blank" href={created}>{ created }</a></p>
       </div>
     </section >
   )
