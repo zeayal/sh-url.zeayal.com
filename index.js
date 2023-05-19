@@ -36,14 +36,14 @@ app.get("/github", async (req, res, next) => {
   });
 });
 
-app.use(
-  "/scripts",
-  express.static(__dirname + "/node_modules/@pnotify/")
-);
-app.use(
-  "/style",
-  express.static(__dirname + "/node_modules/@pnotify/")
-);
+// app.use(
+//   "/scripts",
+//   express.static(__dirname + "/node_modules/@pnotify/")
+// );
+// app.use(
+//   "/style",
+//   express.static(__dirname + "/node_modules/@pnotify/")
+// );
 
 const schema = yup.object().shape({
   url: yup.string().trim().url().required(),
