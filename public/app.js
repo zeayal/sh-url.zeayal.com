@@ -55,7 +55,7 @@ const App = () => {
           <h2>短连接生成器</h2>
         </header>
 
-        <form className="flex flex-col">
+        <div className="flex flex-col">
           <div className="flex">
             <label className="inline-block bg-purple-500 text-white w-36 p-3 px-5 rounded-l ">长链接</label>
             <input className="p-3 px-5 focus:outline-none text-base w-full" onChange={handleOnUrlChange} />
@@ -67,7 +67,7 @@ const App = () => {
           <button className="mt-4 bg-purple-500 hover:bg-purple-700 focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer" onClick={onSubmit}>
             点击生成
           </button>
-        </form>
+        </div>
 
         <div className="text-white mt-12 p-2">
           <p>短链接: <a className="hover:bg-pruple-500 text-green-500 " target="_blank">{ created }</a></p>

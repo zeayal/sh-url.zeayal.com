@@ -11,7 +11,7 @@ require("dotenv").config();
 
 // const db = monk(process.env.MONGODB_URL);
 // const db = monk('mongodb://mongo:27017/docker-node-mongo');
-const db = monk('mongo:27017/db_short_url');
+const db = monk('123.60.166.230:27017/db_short_url');
 db.then(() => {
   console.log('mongodb connected');
 }).catch(error => {
